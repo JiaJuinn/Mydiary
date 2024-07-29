@@ -11,7 +11,7 @@
     <color name="colorPrimary">#292929</color>
     <color name="colorPrimaryDark">#292929</color>
     <color name="colorAccent">#FDBE3B</color>
-    <color name="colorwhite">#FFFFFF</color>
+    <color name="colorWhite">#FFFFFF</color>
     <color name="colorSearchIcon">#DBDBDB</color>
     <color name="colorTextHint">#787B7B</color>
     <color name="colorQuickActionsBackground">#2F2D2E</color>
