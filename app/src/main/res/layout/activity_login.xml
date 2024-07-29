@@ -30,6 +30,16 @@
         android:gravity="center"
         android:layout_margin="20dp">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_in"
+            android:textColor="@color/colorNoteColor2"
+            android:fontFamily="@font/ubuntu_bold"
+            android:textSize="@dimen/_30sdp"
+            android:gravity="center"
+            android:layout_margin="@dimen/_30sdp"/>
+
         <EditText
             android:id="@+id/signupEmail"
             android:layout_width="match_parent"
@@ -42,6 +52,7 @@
             android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorTextHint"
             android:backgroundTint="@color/colorTextHint"
+            android:fontFamily="@font/ubuntu_regular"
             tools:ignore="TextFields,VisualLintTextFieldSize" />
 
         <EditText
@@ -57,6 +68,7 @@
             android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorTextHint"
             android:backgroundTint="@color/colorTextHint"
+            android:fontFamily="@font/ubuntu_regular"
             tools:ignore="TextFields,VisualLintTextFieldSize"
             />
 

@@ -1,9 +1,10 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPrimary"
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/textMyDiary"
@@ -43,7 +44,7 @@
         <EditText
             android:id="@+id/inputSearch"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_48sdp"
+            android:layout_height="@dimen/_30sdp"
             android:layout_marginStart="@dimen/_12sdp"
             android:background="@null"
             android:fontFamily="@font/ubuntu_regular"
@@ -54,7 +55,8 @@
             android:inputType="text"
             android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorTextHint"
-            android:textSize="@dimen/_13sdp"/>
+            android:textSize="@dimen/_13sdp"
+            tools:ignore="VisualLintTextFieldSize,TextContrastCheck,TextSizeCheck,TouchTargetSizeCheck" />
 
     </LinearLayout>
 
@@ -64,13 +66,14 @@
         android:id="@+id/diaryRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/_2sdp"
-        android:layout_marginEnd="@dimen/_2sdp"
+        android:layout_margin="@dimen/_12sdp"
         android:clipToPadding="false"
         android:padding="0dp"
         android:paddingEnd="@dimen/_12sdp"
+
         app:layout_constraintBottom_toTopOf="@id/layoutQuickActions"
-        app:layout_constraintTop_toBottomOf="@id/layoutSearch"/>
+        app:layout_constraintTop_toBottomOf="@id/layoutSearch"
+        tools:ignore="RtlSymmetry" />
 
     <LinearLayout
         android:id="@+id/layoutQuickActions"

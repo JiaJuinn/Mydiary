@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +17,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var registerLink: TextView
     private lateinit var signupEmail: EditText
     private lateinit var signupPassword: EditText
-    private lateinit var backBtn: ImageButton
+    private lateinit var backBtn: ImageView
     private lateinit var loginButton: Button
     private lateinit var mAuth: FirebaseAuth
 
@@ -29,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         signupPassword = findViewById(R.id.signupPassword)
         loginButton = findViewById(R.id.loginBtn)
         registerLink = findViewById(R.id.registerLink)
-        backBtn = findViewById(R.id.backBtn)
+        backBtn = findViewById(R.id.imageBack)
 
         mAuth = FirebaseAuth.getInstance()
 

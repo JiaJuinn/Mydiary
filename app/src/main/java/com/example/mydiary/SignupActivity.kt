@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,7 @@ class SignupActivity: AppCompatActivity() {
     private lateinit var registerConfirmPassword: EditText
     private lateinit var registerButton: Button
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var backBtn: ImageButton
+    private lateinit var backBtn: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +34,7 @@ class SignupActivity: AppCompatActivity() {
         registerConfirmPassword = findViewById(R.id.registerConfirmPassword)
         registerButton = findViewById(R.id.registerBtn)
         loginLink = findViewById(R.id.loginLink)
-        backBtn = findViewById(R.id.backBtn)
+        backBtn = findViewById(R.id.imageBack)
         registerUsername = findViewById(R.id.userName)
 
         mAuth = FirebaseAuth.getInstance()

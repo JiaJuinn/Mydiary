@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".enterPage"
-    android:background="@drawable/backgroundgradientlights">
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="500px"
             android:layout_height="500px"
-            android:src="@drawable/mydiarylogo"/>
+            android:src="@drawable/mydiary_logo"/>
 
         <TextView
             android:id="@+id/textView"
@@ -26,10 +26,11 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="Capture Moment\nCraft Memories"
-            android:textSize="25dp"
-            android:textStyle="italic"
-            android:textColor="@color/white"
-            android:layout_margin="10dp"/>
+            android:textSize="@dimen/_25sdp"
+            android:fontFamily="@font/ubuntu_italic"
+            android:textColor="@color/colorWhite"
+            android:layout_margin="10dp"
+            tools:ignore="HardcodedText" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -40,17 +41,21 @@
                 android:id="@+id/loginBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login"
+                android:text="@string/login"
+                android:fontFamily="@font/ubuntu_bold"
+                android:backgroundTint="@color/colorNoteColor2"
                 android:layout_margin="10dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/colorPrimary"/>
 
             <Button
                 android:id="@+id/signupBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sign Up"
+                android:text="@string/sign_up"
                 android:layout_margin="10dp"
-                android:textColor="@color/black"/>
+                android:fontFamily="@font/ubuntu_bold"
+                android:backgroundTint="@color/colorNoteColor2"
+                android:textColor="@color/colorPrimary"/>
         </LinearLayout>
     </LinearLayout>
 
