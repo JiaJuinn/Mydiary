@@ -16,4 +16,9 @@
 
     <string name="my_notes">My Notes</string>
     <string name="search_diaries">Search diaries</string>
+    <string name="note_title">Note Title</string>
+    <string name="note_subtitle">Note Subtitle</string>
+    <string name="type_note_here">Type note here</string>
+    <string name="time">Time</string>
+    <string name="date">Date</string>
 </resources>

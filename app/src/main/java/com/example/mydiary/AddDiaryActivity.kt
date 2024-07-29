@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -20,8 +21,8 @@ class AddDiaryActivity : AppCompatActivity() {
     private lateinit var diaryDate: EditText
     private lateinit var diaryTime: EditText
     private lateinit var diaryDescription: EditText
-    private lateinit var addDiaryButton: Button
-    private lateinit var backBtn : ImageButton
+    private lateinit var addDiaryButton: ImageView
+    private lateinit var backBtn : ImageView
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var databaseRef: DatabaseReference
@@ -35,7 +36,7 @@ class AddDiaryActivity : AppCompatActivity() {
         diaryTime = findViewById(R.id.diaryTime)
         diaryDescription = findViewById(R.id.diaryDescription)
         addDiaryButton = findViewById(R.id.addDiaryButton)
-        backBtn = findViewById(R.id.backBtn)
+        backBtn = findViewById(R.id.imageBack)
 
         mAuth = FirebaseAuth.getInstance()
         databaseRef = FirebaseDatabase.getInstance().reference
