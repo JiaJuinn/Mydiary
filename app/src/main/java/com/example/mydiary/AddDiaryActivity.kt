@@ -2,9 +2,11 @@ package com.example.mydiary
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.media.Image
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -19,7 +21,7 @@ class AddDiaryActivity : AppCompatActivity() {
     private lateinit var diaryTime: EditText
     private lateinit var diaryDescription: EditText
     private lateinit var addDiaryButton: Button
-    private lateinit var backBtn : Button
+    private lateinit var backBtn : ImageButton
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var databaseRef: DatabaseReference
@@ -57,9 +59,7 @@ class AddDiaryActivity : AppCompatActivity() {
 
         addDiaryButton.setOnClickListener { addDiaryEntry() }
 
-        backBtn.setOnClickListener {
-            finish()
-        }
+        backBtn.setOnClickListener { finish() }
     }
 
     private fun addDiaryEntry() {
