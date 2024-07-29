@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var databaseRef: DatabaseReference
     private lateinit var userId: String
     private lateinit var adapter: DiaryAdapter
-//    private lateinit var signOut: Button
+    private lateinit var signOut: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         diaryRecyclerView = findViewById(R.id.diaryRecyclerView)
         fab = findViewById(R.id.fab)
-//        signOut = findViewById(R.id.signoutBtn)
+        signOut = findViewById(R.id.signOutBtn)
         mAuth = FirebaseAuth.getInstance()
 
         // Get the current user's ID
@@ -76,17 +76,17 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //Prevent user to multiple backing operation
-//        signOut.setOnClickListener {
-//            signOutUser()
-//            val intent = Intent(this, enterPage::class.java).apply {
-//                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
-//                        Intent.FLAG_ACTIVITY_CLEAR_TASK or
-//                        Intent.FLAG_ACTIVITY_NEW_TASK
-//            }
-//            startActivity(intent)
-//            finish() // Optionally finish the current activity
-//        }
+//        Prevent user to multiple backing operation
+        signOut.setOnClickListener {
+            signOutUser()
+            val intent = Intent(this, enterPage::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                        Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+            startActivity(intent)
+            finish() // Optionally finish the current activity
+        }
     }
 
     override fun onStart() {
@@ -99,8 +99,8 @@ class MainActivity : AppCompatActivity() {
         adapter.stopListening()
     }
 
-//    private fun signOutUser() {
-//        mAuth.signOut()
-//        Toast.makeText(this, "User signed out.", Toast.LENGTH_SHORT).show()
-//    }
+    private fun signOutUser() {
+        mAuth.signOut()
+        Toast.makeText(this, "User signed out.", Toast.LENGTH_SHORT).show()
+    }
 }

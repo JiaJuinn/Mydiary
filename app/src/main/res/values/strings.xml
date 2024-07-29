@@ -16,9 +16,9 @@
 
     <string name="my_diaries">My Diaries</string>
     <string name="search_diaries">Search diaries</string>
-    <string name="note_title">Note Title</string>
-    <string name="note_subtitle">Note Subtitle</string>
-    <string name="type_note_here">Type note here</string>
+    <string name="diary_title">Diary Title</string>
+    <string name="diary_subtitle">Diary Subtitle</string>
+    <string name="type_diary_here">Type diary here</string>
     <string name="time">Time</string>
     <string name="date">Date</string>
     <string name="login">LOGIN</string>
@@ -32,4 +32,5 @@
     <string name="login_Link">Already have an account? Login Here</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">SIGN UP</string>
+    <string name="sign_out">Sign Out</string>
 </resources>

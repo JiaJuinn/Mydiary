@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sign_in"
-            android:textColor="@color/colorNoteColor2"
+            android:textColor="@color/colorDiaryColor2"
             android:fontFamily="@font/ubuntu_bold"
             android:textSize="@dimen/_30sdp"
             android:gravity="center"
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:text="@string/register_link"
             android:textAlignment="textEnd"
-            android:textColor="@color/colorNoteColor2"
+            android:textColor="@color/colorDiaryColor2"
             android:fontFamily="@font/ubuntu_italic" />
 
         <Button
@@ -90,7 +90,7 @@
             android:layout_marginTop="20dp"
             android:text="@string/login"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/colorPrimary"
             android:fontFamily="@font/ubuntu_bold"
             android:backgroundTint="@color/colorAccent"
             />

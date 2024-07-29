@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="green">#4fa853</color>
-    <color name="blue">#59b5df</color>
-    <color name="grey">#808080</color>
-    <color name="transparent">#F4FAFC</color>
-
-
     <color name="colorPrimary">#292929</color>
     <color name="colorPrimaryDark">#292929</color>
     <color name="colorAccent">#FDBE3B</color>
@@ -20,10 +12,12 @@
     <color name="colorDefaultNoteColor">#333333</color>
     <color name="colorNoteSubtitleText">#FAFAFA</color>
     <color name="colorMiscellaneousBackground">#1F1F1F</color>
-    <color name="colorNoteColor2">#FDBE3B</color>
-    <color name="colorNoteColor3">#FF4842</color>
-    <color name="colorNoteColor4">#3A52Fc</color>
-    <color name="colorNoteColors">#000000</color>
+    <color name="colorDiaryColor2">#FDBE3B</color>
+    <color name="colorDiaryColor3">#FF4842</color>
+    <color name="colorDiaryColor4">#3A52Fc</color>
+    <color name="colorDiaryColors">#000000</color>
     <color name="colorDelete">#FF4842</color>
     <color name="colorSearchBackground">#333333</color>
+
+    <color name="blue">#292929</color>
 </resources>

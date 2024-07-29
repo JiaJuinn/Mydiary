@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/blue"
+            android:background="@color/colorDiaryColor2"
             >
 
             <LinearLayout
@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="DiaryTitle"
+                    android:text="@string/diary_title"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Date" />
+                    android:text="@string/date" />
                 
             </LinearLayout>
 

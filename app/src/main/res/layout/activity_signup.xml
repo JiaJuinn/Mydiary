@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/registration"
-            android:textColor="@color/colorNoteColor2"
+            android:textColor="@color/colorDiaryColor2"
             android:fontFamily="@font/ubuntu_bold"
             android:textSize="@dimen/_30sdp"
             android:gravity="center"
@@ -111,7 +111,7 @@
             android:text="@string/login_Link"
             android:textAlignment="textEnd"
             android:fontFamily="@font/ubuntu_regular"
-            android:textColor="@color/colorNoteColor2" />
+            android:textColor="@color/colorDiaryColor2" />
 
         <Button
             android:id="@+id/registerBtn"
@@ -120,7 +120,7 @@
             android:layout_marginTop="20dp"
             android:text="@string/register"
             android:textAlignment="center"
-            android:backgroundTint="@color/colorNoteColor2"
+            android:backgroundTint="@color/colorDiaryColor2"
             android:fontFamily="@font/ubuntu_bold"
             android:textColor="@color/colorPrimary"/>
 
