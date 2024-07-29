@@ -19,6 +19,7 @@ class AddDiaryActivity : AppCompatActivity() {
     private lateinit var diaryTime: EditText
     private lateinit var diaryDescription: EditText
     private lateinit var addDiaryButton: Button
+    private lateinit var backBtn : Button
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var databaseRef: DatabaseReference
@@ -32,6 +33,7 @@ class AddDiaryActivity : AppCompatActivity() {
         diaryTime = findViewById(R.id.diaryTime)
         diaryDescription = findViewById(R.id.diaryDescription)
         addDiaryButton = findViewById(R.id.addDiaryButton)
+        backBtn = findViewById(R.id.backBtn)
 
         mAuth = FirebaseAuth.getInstance()
         databaseRef = FirebaseDatabase.getInstance().reference
@@ -54,6 +56,10 @@ class AddDiaryActivity : AppCompatActivity() {
         }
 
         addDiaryButton.setOnClickListener { addDiaryEntry() }
+
+        backBtn.setOnClickListener {
+            finish()
+        }
     }
 
     private fun addDiaryEntry() {
