@@ -21,4 +21,8 @@
     <string name="type_note_here">Type note here</string>
     <string name="time">Time</string>
     <string name="date">Date</string>
+    <string name="login">LOGIN</string>
+    <string name="email">Email</string>
+    <string name="register_link">Dont have an accound? register here</string>
+    <string name="password">Password</string>
 </resources>
