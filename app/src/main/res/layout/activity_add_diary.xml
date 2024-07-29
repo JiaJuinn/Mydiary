@@ -90,16 +90,16 @@
                 android:focusable="false"
                 android:fontFamily="@font/ubuntu_italic"
                 android:hint="@string/date"
-                android:textColorHint="@color/colorTextHint"
                 android:importantForAutofill="no"
                 android:includeFontPadding="false"
                 android:textColor="@color/colorTextSubtitle"
+                android:textColorHint="@color/colorTextHint"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="@id/inputDiarySubtitle"
                 app:layout_constraintStart_toStartOf="@id/inputDiarySubtitle"
                 app:layout_constraintTop_toBottomOf="@id/inputDiarySubtitle"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TextContrastCheck,TextFields,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
             <EditText
                 android:id="@+id/diaryTime"
@@ -110,16 +110,16 @@
                 android:focusable="false"
                 android:fontFamily="@font/ubuntu_italic"
                 android:hint="@string/time"
-                android:textColorHint="@color/colorTextHint"
                 android:importantForAutofill="no"
                 android:includeFontPadding="false"
                 android:textColor="@color/colorTextSubtitle"
+                android:textColorHint="@color/colorTextHint"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="@id/diaryDate"
                 app:layout_constraintStart_toStartOf="@id/diaryDate"
                 app:layout_constraintTop_toBottomOf="@id/diaryDate"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TextContrastCheck,TextFields,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
             <EditText
                 android:id="@+id/inputDiarySubtitle"

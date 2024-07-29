@@ -6,7 +6,7 @@
     android:background="@color/colorPrimary">
 
     <TextView
-        android:id="@+id/textMyNotes"
+        android:id="@+id/textMyDiary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_12sdp"
@@ -14,7 +14,7 @@
         android:layout_marginEnd="@dimen/_12sdp"
         android:fontFamily="@font/ubuntu_bold"
         android:includeFontPadding="false"
-        android:text="@string/my_notes"
+        android:text="@string/my_diaries"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/_20ssp"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -31,7 +31,7 @@
         android:orientation="horizontal"
         android:paddingStart="@dimen/_10sdp"
         android:paddingEnd="@dimen/_10sdp"
-        app:layout_constraintTop_toBottomOf="@id/textMyNotes">
+        app:layout_constraintTop_toBottomOf="@id/textMyDiary">
     
         <ImageView
             android:layout_width="@dimen/_20sdp"
