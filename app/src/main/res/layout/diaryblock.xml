@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
         app:cardCornerRadius="20dp"
+
         >
 
         <LinearLayout
@@ -19,7 +20,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/colorDiaryColor2"
-            >
+            android:id="@+id/diary_container"
+            tools:ignore="InvalidId">
 
             <LinearLayout
                 android:layout_width="match_parent"

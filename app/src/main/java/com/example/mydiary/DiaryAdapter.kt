@@ -1,5 +1,6 @@
 package com.example.mydiary
 
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,7 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
     FirebaseRecyclerAdapter<Diary, DiaryAdapter.MyViewHolder>(options) {
 
     private var clickListener: OnItemClickListener? = null
-    private var itemList: List<Diary>?=null
+    private var itemList: List<Diary>? = null
 
     interface OnItemClickListener {
         fun onItemClick(diary: Diary, position: Int)
@@ -32,14 +33,15 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
         holder.date.text = model.date
         holder.time.text = model.time
 
-        // Glide or other image loading logic if needed
-        // Glide.with(holder.diaryImage.context)
-        //     .load(model.diaryImage)
-        //     .placeholder(R.drawable.placeholder)
-        //     .error(R.drawable.error)
-        //     .into(holder.diaryImage)
+        // Validate and set the background color of the diary container
+        if (model.diaryColor.isNotEmpty() && isValidColor(model.diaryColor)) {
+            val color = Color.parseColor(model.diaryColor)
+            holder.diaryContainer.setBackgroundColor(color)
+        } else {
+            // Set a default color if the color string is invalid
+            holder.diaryContainer.setBackgroundColor(Color.WHITE) // or any default color
+        }
 
-        holder.bind(model) // Pass the model directly for binding
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -56,13 +58,22 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
         notifyDataSetChanged()
     }
 
+    private fun isValidColor(colorString: String): Boolean {
+        return try {
+            Color.parseColor(colorString)
+            true
+        } catch (e: IllegalArgumentException) {
+            false
+        }
+    }
+
     class MyViewHolder(itemView: View, private val listener: OnItemClickListener?) :
         RecyclerView.ViewHolder(itemView) {
 
         val title: TextView = itemView.findViewById(R.id.diaryTitle)
         val date: TextView = itemView.findViewById(R.id.diaryDate)
         val time: TextView = itemView.findViewById(R.id.diaryTime) // Uncomment if you have a time TextView
-        val diaryColor: View = itemView.findViewById(R.id.diaryColor)
+        val diaryContainer: View = itemView.findViewById(R.id.diary_container)
 
         fun bind(diary: Diary) {
             itemView.setOnClickListener {
