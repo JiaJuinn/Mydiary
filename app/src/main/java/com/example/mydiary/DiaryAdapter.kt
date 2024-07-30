@@ -30,7 +30,7 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int, model: Diary) {
         holder.title.text = model.title
         holder.date.text = model.date
-        // holder.time.text = model.time // Uncomment if you have a time TextView
+        holder.time.text = model.time
 
         // Glide or other image loading logic if needed
         // Glide.with(holder.diaryImage.context)
@@ -39,7 +39,6 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
         //     .error(R.drawable.error)
         //     .into(holder.diaryImage)
 
-        holder.diaryColor.background = model.background
         holder.bind(model) // Pass the model directly for binding
     }
 
@@ -62,7 +61,7 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
 
         val title: TextView = itemView.findViewById(R.id.diaryTitle)
         val date: TextView = itemView.findViewById(R.id.diaryDate)
-        // val time: TextView = itemView.findViewById(R.id.diaryTime) // Uncomment if you have a time TextView
+        val time: TextView = itemView.findViewById(R.id.diaryTime) // Uncomment if you have a time TextView
         val diaryColor: View = itemView.findViewById(R.id.diaryColor)
 
         fun bind(diary: Diary) {

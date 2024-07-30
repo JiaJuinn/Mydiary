@@ -34,4 +34,5 @@
     <string name="sign_up">SIGN UP</string>
     <string name="sign_out">Sign Out</string>
     <string name="pick_color">Pick Color</string>
+    <string name="add_image">add image</string>
 </resources>

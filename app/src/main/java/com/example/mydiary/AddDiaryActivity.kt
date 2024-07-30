@@ -35,6 +35,7 @@ class AddDiaryActivity : AppCompatActivity() {
     private lateinit var imageColor3: ImageView
     private lateinit var imageColor4: ImageView
     private lateinit var imageColor5: ImageView
+    private lateinit var layoutAddImage: LinearLayout
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var databaseRef: DatabaseReference
@@ -55,6 +56,7 @@ class AddDiaryActivity : AppCompatActivity() {
         imageColor3= findViewById(R.id.imageColor3)
         imageColor4= findViewById(R.id.imageColor4)
         imageColor5= findViewById(R.id.imageColor5)
+        layoutAddImage = findViewById(R.id.layoutAddImage)
 
         mAuth = FirebaseAuth.getInstance()
         databaseRef = FirebaseDatabase.getInstance().reference
@@ -130,6 +132,10 @@ class AddDiaryActivity : AppCompatActivity() {
             imageColor4.setImageResource(0)
             imageColor5.setImageResource(R.drawable.ic_done)
             setSubtitleIndicatorColor()
+        }
+
+        layoutAddImage.setOnClickListener(){
+
         }
 
         initMiscellaneous()
