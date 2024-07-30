@@ -5,8 +5,8 @@ data class Diary(
     var date: String? = null,
     var time: String? = null,
     var description: String = "",
-    var diaryImage: String ="",
-    var diaryColor: String =""
+    var diaryColor: String ="",
+    var diaryImage: String = ""
 ){
     // Default constructor required for Firebase
     constructor() : this(null, null, null)

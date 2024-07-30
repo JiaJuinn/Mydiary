@@ -2,6 +2,7 @@ package com.example.mydiary
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.media.Image
@@ -61,7 +62,7 @@ class AddDiaryActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
         databaseRef = FirebaseDatabase.getInstance().reference
 
-        selectedDiaryColor = "#333333"
+        selectedDiaryColor = "#333333" //default color
 
         val calendar = Calendar.getInstance()
         val dateListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
@@ -135,11 +136,18 @@ class AddDiaryActivity : AppCompatActivity() {
         }
 
         layoutAddImage.setOnClickListener(){
-
+            openFileChooser()
         }
 
         initMiscellaneous()
         setSubtitleIndicatorColor()
+    }
+
+    private fun openFileChooser() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(intent, 1)
     }
 
     private fun initMiscellaneous() {
@@ -166,7 +174,7 @@ class AddDiaryActivity : AppCompatActivity() {
         val date = diaryDate.text.toString().trim()
         val time = diaryTime.text.toString().trim()
         val description = diaryDescription.text.toString().trim()
-        val diaryColor = viewSubtitleIndicator.background.toString().trim()
+        val diaryColor = selectedDiaryColor
 
         if (title.isEmpty() || date.isEmpty() || time.isEmpty() || description.isEmpty()) {
             Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show()
