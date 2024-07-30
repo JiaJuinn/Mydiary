@@ -39,6 +39,7 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
         //     .error(R.drawable.error)
         //     .into(holder.diaryImage)
 
+        holder.diaryColor.background = model.background
         holder.bind(model) // Pass the model directly for binding
     }
 
@@ -62,6 +63,7 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
         val title: TextView = itemView.findViewById(R.id.diaryTitle)
         val date: TextView = itemView.findViewById(R.id.diaryDate)
         // val time: TextView = itemView.findViewById(R.id.diaryTime) // Uncomment if you have a time TextView
+        val diaryColor: View = itemView.findViewById(R.id.diaryColor)
 
         fun bind(diary: Diary) {
             itemView.setOnClickListener {
