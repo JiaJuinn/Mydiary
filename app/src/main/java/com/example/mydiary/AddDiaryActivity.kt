@@ -24,6 +24,7 @@ import java.util.Calendar
 class AddDiaryActivity : AppCompatActivity() {
 
     private lateinit var diaryTitle: EditText
+    private lateinit var diarySubtitle: EditText
     private lateinit var diaryDate: EditText
     private lateinit var diaryTime: EditText
     private lateinit var diaryDescription: EditText
@@ -46,6 +47,7 @@ class AddDiaryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_diary)
 
         diaryTitle = findViewById(R.id.diaryTitle)
+        diarySubtitle = findViewById(R.id.inputDiarySubtitle)
         diaryDate = findViewById(R.id.diaryDate)
         diaryTime = findViewById(R.id.diaryTime)
         diaryDescription = findViewById(R.id.diaryDescription)
@@ -171,19 +173,20 @@ class AddDiaryActivity : AppCompatActivity() {
 
     private fun addDiaryEntry() {
         val title = diaryTitle.text.toString().trim()
+        val subtitle = diarySubtitle.text.toString().trim()
         val date = diaryDate.text.toString().trim()
         val time = diaryTime.text.toString().trim()
         val description = diaryDescription.text.toString().trim()
         val diaryColor = selectedDiaryColor
 
-        if (title.isEmpty() || date.isEmpty() || time.isEmpty() || description.isEmpty()) {
-            Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show()
+        if (title.isEmpty()) {
+            Toast.makeText(this, "Please fill out title fields", Toast.LENGTH_SHORT).show()
             return
         }
 
         val userId = mAuth.currentUser?.uid ?: return
 
-        val diaryEntry = Diary(title, date, time, description,diaryColor)
+        val diaryEntry = Diary(title,subtitle, date, time, description,diaryColor)
         databaseRef.child("users").child(userId).child("diaryEntries").push().setValue(diaryEntry)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {

@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var diaryRecyclerView: RecyclerView
     private lateinit var fab: ImageView
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var databaseRef: DatabaseReference
     private lateinit var userId: String
     private lateinit var adapter: DiaryAdapter
     private lateinit var signOut: Button

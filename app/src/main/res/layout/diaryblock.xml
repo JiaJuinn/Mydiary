@@ -4,7 +4,8 @@
     android:id="@+id/layoutDiary"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/_5ssp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/diaryColor"
@@ -12,7 +13,6 @@
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
         app:cardCornerRadius="20dp"
-
         >
 
         <LinearLayout
@@ -36,6 +36,7 @@
                     android:layout_margin="10dp"
                     android:text="@string/diary_title"
                     android:textSize="20sp"
+                    android:textColor="@color/colorWhite"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -47,6 +48,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:textColor="@color/colorWhite"
+                        android:fontFamily="@font/ubuntu_italic"
                         android:text="@string/date" />
 
                     <TextView
@@ -54,6 +57,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:fontFamily="@font/ubuntu_italic"
+                        android:textColor="@color/colorWhite"
                         android:text="@string/time" />
 
                 </LinearLayout>

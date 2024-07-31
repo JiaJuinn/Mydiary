@@ -42,6 +42,7 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
             holder.diaryContainer.setBackgroundColor(Color.WHITE) // or any default color
         }
 
+        holder.bind(model)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -72,7 +73,7 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
 
         val title: TextView = itemView.findViewById(R.id.diaryTitle)
         val date: TextView = itemView.findViewById(R.id.diaryDate)
-        val time: TextView = itemView.findViewById(R.id.diaryTime) // Uncomment if you have a time TextView
+        val time: TextView = itemView.findViewById(R.id.diaryTime)
         val diaryContainer: View = itemView.findViewById(R.id.diary_container)
 
         fun bind(diary: Diary) {
