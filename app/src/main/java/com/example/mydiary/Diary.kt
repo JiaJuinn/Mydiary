@@ -10,7 +10,6 @@ data class Diary(
     var diaryImage: String = ""
 ){
     // Default constructor required for Firebase
-    constructor() : this(null, null, null,null,)
+    constructor() : this(null, null, null,null)
 }
-
 
