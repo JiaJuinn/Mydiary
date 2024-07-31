@@ -41,7 +41,7 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
             // Set a default color if the color string is invalid
             holder.diaryContainer.setBackgroundColor(Color.WHITE) // or any default color
         }
-
+        holder.bind(model)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
