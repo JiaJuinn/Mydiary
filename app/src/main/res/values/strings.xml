@@ -12,4 +12,27 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+
+    <string name="my_diaries">My Diaries</string>
+    <string name="search_diaries">Search diaries</string>
+    <string name="diary_title">Diary Title</string>
+    <string name="diary_subtitle">Diary Subtitle</string>
+    <string name="type_diary_here">Type diary here</string>
+    <string name="time">Time</string>
+    <string name="date">Date</string>
+    <string name="login">LOGIN</string>
+    <string name="email">Email</string>
+    <string name="register_link">Don't have an account? register here</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="registration">Registration</string>
+    <string name="login_Link">Already have an account? Login Here</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="pick_color">Pick Color</string>
+    <string name="add_image">add image</string>
 </resources>
