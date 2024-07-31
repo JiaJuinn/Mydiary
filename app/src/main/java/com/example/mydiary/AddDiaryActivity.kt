@@ -217,72 +217,53 @@ class AddDiaryActivity : AppCompatActivity() {
             return
         }
 
-        val drawable = diaryImage.drawable ?: getDrawable(R.drawable.default_image)
-        if (drawable == null) {
-            Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show()
-            return
-        }
-
         val userId = mAuth.currentUser?.uid ?: return
-
-        val bitmap = when (drawable) {
-            is BitmapDrawable -> drawable.bitmap
-            else -> {
-                // Convert other drawable types to Bitmap
-                val bitmap = Bitmap.createBitmap(
-                    drawable.intrinsicWidth,
-                    drawable.intrinsicHeight,
-                    Bitmap.Config.ARGB_8888
-                )
-                val canvas = Canvas(bitmap)
-                drawable.setBounds(0, 0, canvas.width, canvas.height)
-                drawable.draw(canvas)
-                bitmap
-            }
-        }
-
-        // Compress the bitmap to bytes
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val data = baos.toByteArray()
-
-        // Generate a unique ID for the image
         val imageId = UUID.randomUUID().toString()
         val imagePath = storageRef.child("diary_images/$userId/$imageId")
 
-        if (imagePath != null) {
+        // Check if the drawable is a BitmapDrawable
+        val drawable = diaryImage.drawable
+        val bitmap: Bitmap? = if (drawable is BitmapDrawable) {
+            drawable.bitmap
+        } else {
+            null
+        }
+
+        if (bitmap != null) {
+            // Compress the bitmap to bytes
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val data = baos.toByteArray()
+
             val uploadTask = imagePath.putBytes(data)
             uploadTask.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    imagePath.downloadUrl.addOnCompleteListener { uploadImage ->
-                        val imageURL = uploadImage.toString()
-                        val diaryEntry =
-                            Diary(title, subtitle, date, time, description, diaryColor, imageURL)
-                        databaseRef.child("users").child(userId).child("diaryEntries").push()
-                            .setValue(diaryEntry)
-                            .addOnCompleteListener { task2 ->
-                                if (task.isSuccessful) {
-                                    Toast.makeText(this, "Diary entry added", Toast.LENGTH_SHORT)
-                                        .show()
-                                    finish()
-                                } else {
-                                    Toast.makeText(
-                                        this,
-                                        "Failed to add diary entry",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                    // Get the download URL
+                    imagePath.downloadUrl.addOnCompleteListener { downloadTask ->
+                        if (downloadTask.isSuccessful) {
+                            val imageURL = downloadTask.result.toString()
+                            val diaryEntry = Diary(title, subtitle, date, time, description, diaryColor, imageURL)
+                            databaseRef.child("users").child(userId).child("diaryEntries").push()
+                                .setValue(diaryEntry)
+                                .addOnCompleteListener { task2 ->
+                                    if (task2.isSuccessful) {
+                                        Toast.makeText(this, "Diary entry added", Toast.LENGTH_SHORT).show()
+                                        finish()
+                                    } else {
+                                        Toast.makeText(this, "Failed to add diary entry", Toast.LENGTH_SHORT).show()
+                                    }
                                 }
-                            }
+                        } else {
+                            Toast.makeText(this, "Failed to get download URL", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 } else {
                     Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show()
                 }
             }
         } else {
-
-            val diaryEntry =
-                Diary(title, subtitle, date, time, description, diaryColor, diaryImage.toString())
-
+            // Handle the case where there is no image
+            val diaryEntry = Diary(title, subtitle, date, time, description, diaryColor, "")
             databaseRef.child("users").child(userId).child("diaryEntries").push()
                 .setValue(diaryEntry)
                 .addOnCompleteListener { task ->
@@ -294,6 +275,8 @@ class AddDiaryActivity : AppCompatActivity() {
                     }
                 }
         }
+    }
+
 
 
 //        if (filePath != null) {
@@ -327,4 +310,3 @@ class AddDiaryActivity : AppCompatActivity() {
 //                }
 //        }
     }
-}
