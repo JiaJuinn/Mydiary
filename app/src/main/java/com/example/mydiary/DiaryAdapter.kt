@@ -30,6 +30,7 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int, model: Diary) {
         holder.title.text = model.title
+
         holder.date.text = model.date
         holder.time.text = model.time
 
