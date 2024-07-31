@@ -3,8 +3,11 @@ package com.example.mydiary
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -21,7 +24,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import java.io.ByteArrayOutputStream
 import java.util.Calendar
+import java.util.UUID
 import kotlin.math.log
 
 class AddDiaryActivity : AppCompatActivity() {
@@ -212,29 +217,74 @@ class AddDiaryActivity : AppCompatActivity() {
             return
         }
 
+        val drawable = diaryImage.drawable ?: getDrawable(R.drawable.default_image)
+        if (drawable == null) {
+            Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val userId = mAuth.currentUser?.uid ?: return
 
-        if (filePath != null) {
-            val ref = storageRef.child("images/$userId/${System.currentTimeMillis()}.jpg")
-            ref.putFile(filePath!!).addOnSuccessListener {
-                ref.downloadUrl.addOnSuccessListener { uri ->
-                    val diaryEntry = Diary(title, subtitle, date, time, description, diaryColor, uri.toString())
-                    databaseRef.child("users").child(userId).child("diaryEntries").push().setValue(diaryEntry)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                Toast.makeText(this, "Diary entry added", Toast.LENGTH_SHORT).show()
-                                finish()
-                            } else {
-                                Toast.makeText(this, "Failed to add diary entry", Toast.LENGTH_SHORT).show()
+        val bitmap = when (drawable) {
+            is BitmapDrawable -> drawable.bitmap
+            else -> {
+                // Convert other drawable types to Bitmap
+                val bitmap = Bitmap.createBitmap(
+                    drawable.intrinsicWidth,
+                    drawable.intrinsicHeight,
+                    Bitmap.Config.ARGB_8888
+                )
+                val canvas = Canvas(bitmap)
+                drawable.setBounds(0, 0, canvas.width, canvas.height)
+                drawable.draw(canvas)
+                bitmap
+            }
+        }
+
+        // Compress the bitmap to bytes
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+
+        // Generate a unique ID for the image
+        val imageId = UUID.randomUUID().toString()
+        val imagePath = storageRef.child("diary_images/$userId/$imageId")
+
+        if (imagePath != null) {
+            val uploadTask = imagePath.putBytes(data)
+            uploadTask.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    imagePath.downloadUrl.addOnCompleteListener { uploadImage ->
+                        val imageURL = uploadImage.toString()
+                        val diaryEntry =
+                            Diary(title, subtitle, date, time, description, diaryColor, imageURL)
+                        databaseRef.child("users").child(userId).child("diaryEntries").push()
+                            .setValue(diaryEntry)
+                            .addOnCompleteListener { task2 ->
+                                if (task.isSuccessful) {
+                                    Toast.makeText(this, "Diary entry added", Toast.LENGTH_SHORT)
+                                        .show()
+                                    finish()
+                                } else {
+                                    Toast.makeText(
+                                        this,
+                                        "Failed to add diary entry",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                             }
-                        }
+                    }
+                } else {
+                    Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show()
                 }
-            }.addOnFailureListener { e ->
-                Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show()
             }
         } else {
-            val diaryEntry = Diary(title, subtitle, date, time, description, diaryColor, diaryImage.toString())
-            databaseRef.child("users").child(userId).child("diaryEntries").push().setValue(diaryEntry)
+
+            val diaryEntry =
+                Diary(title, subtitle, date, time, description, diaryColor, diaryImage.toString())
+
+            databaseRef.child("users").child(userId).child("diaryEntries").push()
+                .setValue(diaryEntry)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(this, "Diary entry added", Toast.LENGTH_SHORT).show()
@@ -244,5 +294,37 @@ class AddDiaryActivity : AppCompatActivity() {
                     }
                 }
         }
+
+
+//        if (filePath != null) {
+//            val ref = storageRef.child("images/$userId/${System.currentTimeMillis()}.jpg")
+//            ref.putFile(filePath!!).addOnSuccessListener {
+//                ref.downloadUrl.addOnSuccessListener { uri ->
+//                    val diaryEntry = Diary(title, subtitle, date, time, description, diaryColor, uri.toString())
+//                    databaseRef.child("users").child(userId).child("diaryEntries").push().setValue(diaryEntry)
+//                        .addOnCompleteListener { task ->
+//                            if (task.isSuccessful) {
+//                                Toast.makeText(this, "Diary entry added", Toast.LENGTH_SHORT).show()
+//                                finish()
+//                            } else {
+//                                Toast.makeText(this, "Failed to add diary entry", Toast.LENGTH_SHORT).show()
+//                            }
+//                        }
+//                }
+//            }.addOnFailureListener { e ->
+//                Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show()
+//            }
+//        } else {
+//            val diaryEntry = Diary(title, subtitle, date, time, description, diaryColor, diaryImage.toString())
+//            databaseRef.child("users").child(userId).child("diaryEntries").push().setValue(diaryEntry)
+//                .addOnCompleteListener { task ->
+//                    if (task.isSuccessful) {
+//                        Toast.makeText(this, "Diary entry added", Toast.LENGTH_SHORT).show()
+//                        finish()
+//                    } else {
+//                        Toast.makeText(this, "Failed to add diary entry", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//        }
     }
 }
