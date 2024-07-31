@@ -28,6 +28,7 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
         return position
     }
 
+    //Assign recycleview's attribute using the data from firebase (daily block)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int, model: Diary) {
         holder.title.text = model.title
         holder.date.text = model.date
@@ -41,7 +42,9 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
             // Set a default color if the color string is invalid
             holder.diaryContainer.setBackgroundColor(Color.WHITE) // or any default color
         }
-        holder.bind(model)
+
+        holder.bind(model) //Bind with the functions
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -72,7 +75,7 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
 
         val title: TextView = itemView.findViewById(R.id.diaryTitle)
         val date: TextView = itemView.findViewById(R.id.diaryDate)
-        val time: TextView = itemView.findViewById(R.id.diaryTime) // Uncomment if you have a time TextView
+        val time: TextView = itemView.findViewById(R.id.diaryTime)
         val diaryContainer: View = itemView.findViewById(R.id.diary_container)
 
         fun bind(diary: Diary) {
