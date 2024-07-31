@@ -28,9 +28,9 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
         return position
     }
 
+    //Assign recycleview's attribute using the data from firebase (daily block)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int, model: Diary) {
         holder.title.text = model.title
-
         holder.date.text = model.date
         holder.time.text = model.time
 
@@ -43,7 +43,7 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
             holder.diaryContainer.setBackgroundColor(Color.WHITE) // or any default color
         }
 
-        holder.bind(model)
+        holder.bind(model) //Bind with the functions
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

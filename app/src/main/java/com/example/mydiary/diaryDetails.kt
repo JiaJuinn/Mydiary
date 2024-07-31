@@ -1,5 +1,6 @@
 package com.example.mydiary
 
+import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
@@ -18,6 +19,7 @@ class diaryDetails : AppCompatActivity() {
 
     private lateinit var diaryTitle: EditText
     private lateinit var diarySubTitle: EditText
+    private lateinit var diaryImage: ImageView
     private lateinit var diaryDate: EditText
     private lateinit var diaryTime: EditText
     private lateinit var diaryDescription: EditText
@@ -31,6 +33,7 @@ class diaryDetails : AppCompatActivity() {
 
         diaryTitle = findViewById(R.id.diaryTitle)
         diarySubTitle = findViewById(R.id.inputDiarySubtitle)
+        diaryImage  = findViewById(R.id.imageDiary)
         diaryDate = findViewById(R.id.diaryDate)
         diaryTime = findViewById(R.id.diaryTime)
         diaryDescription = findViewById(R.id.diaryDescription)
@@ -54,6 +57,7 @@ class diaryDetails : AppCompatActivity() {
                     if (dataSnapshot.exists()) {
                         val diaryTitle = dataSnapshot.child("title").getValue(String::class.java)
                         val diarySubTitle = dataSnapshot.child("subtitle").getValue(String::class.java)
+                        val diaryImage = dataSnapshot.child("diaryImage").getValue(String::class.java)
                         val diaryDate = dataSnapshot.child("date").getValue(String::class.java)
                         val diaryTime = dataSnapshot.child("time").getValue(String::class.java)
                         val diaryDescription = dataSnapshot.child("description").getValue(String::class.java)

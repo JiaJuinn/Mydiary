@@ -3,23 +3,26 @@ package com.example.mydiary
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import android.media.Image
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
-import com.example.mydiary.databinding.LayoutMiscellaneousBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.util.Calendar
+import kotlin.math.log
 
 class AddDiaryActivity : AppCompatActivity() {
 
@@ -27,10 +30,11 @@ class AddDiaryActivity : AppCompatActivity() {
     private lateinit var diarySubtitle: EditText
     private lateinit var diaryDate: EditText
     private lateinit var diaryTime: EditText
+    private lateinit var diaryImage: ImageView
     private lateinit var diaryDescription: EditText
     private lateinit var addDiaryButton: ImageView
-    private lateinit var backBtn : ImageView
-    private lateinit var selectedDiaryColor:String
+    private lateinit var backBtn: ImageView
+    private lateinit var selectedDiaryColor: String
     private lateinit var viewSubtitleIndicator: View
     private lateinit var imageColor1: ImageView
     private lateinit var imageColor2: ImageView
@@ -39,8 +43,12 @@ class AddDiaryActivity : AppCompatActivity() {
     private lateinit var imageColor5: ImageView
     private lateinit var layoutAddImage: LinearLayout
 
+
     private lateinit var mAuth: FirebaseAuth
     private lateinit var databaseRef: DatabaseReference
+    private lateinit var storageRef: StorageReference
+
+    private var filePath: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,21 +58,24 @@ class AddDiaryActivity : AppCompatActivity() {
         diarySubtitle = findViewById(R.id.inputDiarySubtitle)
         diaryDate = findViewById(R.id.diaryDate)
         diaryTime = findViewById(R.id.diaryTime)
+        diaryImage = findViewById(R.id.imageDiary)
         diaryDescription = findViewById(R.id.diaryDescription)
         addDiaryButton = findViewById(R.id.addDiaryButton)
         backBtn = findViewById(R.id.imageBack)
         viewSubtitleIndicator = findViewById(R.id.viewSubtitleIndicator)
-        imageColor1= findViewById(R.id.imageColor1)
-        imageColor2= findViewById(R.id.imageColor2)
-        imageColor3= findViewById(R.id.imageColor3)
-        imageColor4= findViewById(R.id.imageColor4)
-        imageColor5= findViewById(R.id.imageColor5)
+        imageColor1 = findViewById(R.id.imageColor1)
+        imageColor2 = findViewById(R.id.imageColor2)
+        imageColor3 = findViewById(R.id.imageColor3)
+        imageColor4 = findViewById(R.id.imageColor4)
+        imageColor5 = findViewById(R.id.imageColor5)
         layoutAddImage = findViewById(R.id.layoutAddImage)
 
         mAuth = FirebaseAuth.getInstance()
         databaseRef = FirebaseDatabase.getInstance().reference
+        storageRef = FirebaseStorage.getInstance().reference
 
         selectedDiaryColor = "#333333" //default color
+
 
         val calendar = Calendar.getInstance()
         val dateListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
@@ -87,7 +98,7 @@ class AddDiaryActivity : AppCompatActivity() {
 
         backBtn.setOnClickListener { finish() }
 
-        imageColor1.setOnClickListener(){
+        imageColor1.setOnClickListener {
             selectedDiaryColor = "#333333"
             imageColor1.setImageResource(R.drawable.ic_done)
             imageColor2.setImageResource(0)
@@ -97,7 +108,7 @@ class AddDiaryActivity : AppCompatActivity() {
             setSubtitleIndicatorColor()
         }
 
-        imageColor2.setOnClickListener(){
+        imageColor2.setOnClickListener {
             selectedDiaryColor = "#FDBE3B"
             imageColor1.setImageResource(0)
             imageColor2.setImageResource(R.drawable.ic_done)
@@ -107,7 +118,7 @@ class AddDiaryActivity : AppCompatActivity() {
             setSubtitleIndicatorColor()
         }
 
-        imageColor3.setOnClickListener(){
+        imageColor3.setOnClickListener {
             selectedDiaryColor = "#FF4842"
             imageColor1.setImageResource(0)
             imageColor2.setImageResource(0)
@@ -117,7 +128,7 @@ class AddDiaryActivity : AppCompatActivity() {
             setSubtitleIndicatorColor()
         }
 
-        imageColor4.setOnClickListener(){
+        imageColor4.setOnClickListener {
             selectedDiaryColor = "#3A52FC"
             imageColor1.setImageResource(0)
             imageColor2.setImageResource(0)
@@ -127,7 +138,7 @@ class AddDiaryActivity : AppCompatActivity() {
             setSubtitleIndicatorColor()
         }
 
-        imageColor5.setOnClickListener(){
+        imageColor5.setOnClickListener {
             selectedDiaryColor = "#000000"
             imageColor1.setImageResource(0)
             imageColor2.setImageResource(0)
@@ -137,7 +148,7 @@ class AddDiaryActivity : AppCompatActivity() {
             setSubtitleIndicatorColor()
         }
 
-        layoutAddImage.setOnClickListener(){
+        layoutAddImage.setOnClickListener {
             openFileChooser()
         }
 
@@ -151,6 +162,24 @@ class AddDiaryActivity : AppCompatActivity() {
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(intent, 1)
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val REQUEST_CODE_SELECT_IMAGE = 1
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == RESULT_OK) {
+            data?.data?.let { selectedImageUri ->
+                try {
+                    val inputStream = contentResolver.openInputStream(selectedImageUri)
+                    val bitmap = BitmapFactory.decodeStream(inputStream)
+                    diaryImage.setImageBitmap(bitmap)
+                    diaryImage.visibility = View.VISIBLE
+                } catch (exception: Exception) {
+                    Toast.makeText(this, exception.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
 
     private fun initMiscellaneous() {
         val layoutMiscellaneous = findViewById<LinearLayout>(R.id.layoutMiscellaneous)
@@ -170,7 +199,6 @@ class AddDiaryActivity : AppCompatActivity() {
         gradientDrawable.setColor(Color.parseColor(selectedDiaryColor))
     }
 
-
     private fun addDiaryEntry() {
         val title = diaryTitle.text.toString().trim()
         val subtitle = diarySubtitle.text.toString().trim()
@@ -186,15 +214,35 @@ class AddDiaryActivity : AppCompatActivity() {
 
         val userId = mAuth.currentUser?.uid ?: return
 
-        val diaryEntry = Diary(title,subtitle, date, time, description,diaryColor)
-        databaseRef.child("users").child(userId).child("diaryEntries").push().setValue(diaryEntry)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(this, "Diary entry added", Toast.LENGTH_SHORT).show()
-                    finish()
-                } else {
-                    Toast.makeText(this, "Failed to add diary entry", Toast.LENGTH_SHORT).show()
+        if (filePath != null) {
+            val ref = storageRef.child("images/$userId/${System.currentTimeMillis()}.jpg")
+            ref.putFile(filePath!!).addOnSuccessListener {
+                ref.downloadUrl.addOnSuccessListener { uri ->
+                    val diaryEntry = Diary(title, subtitle, date, time, description, diaryColor, uri.toString())
+                    databaseRef.child("users").child(userId).child("diaryEntries").push().setValue(diaryEntry)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Toast.makeText(this, "Diary entry added", Toast.LENGTH_SHORT).show()
+                                finish()
+                            } else {
+                                Toast.makeText(this, "Failed to add diary entry", Toast.LENGTH_SHORT).show()
+                            }
+                        }
                 }
+            }.addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show()
             }
+        } else {
+            val diaryEntry = Diary(title, subtitle, date, time, description, diaryColor, diaryImage.toString())
+            databaseRef.child("users").child(userId).child("diaryEntries").push().setValue(diaryEntry)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(this, "Diary entry added", Toast.LENGTH_SHORT).show()
+                        finish()
+                    } else {
+                        Toast.makeText(this, "Failed to add diary entry", Toast.LENGTH_SHORT).show()
+                    }
+                }
+        }
     }
 }
