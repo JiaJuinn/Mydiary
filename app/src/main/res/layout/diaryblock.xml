@@ -15,10 +15,10 @@
         app:cardCornerRadius="20dp"
         >
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:background="@color/colorDiaryColor2"
             android:id="@+id/diary_container"
             tools:ignore="InvalidId">
@@ -28,6 +28,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:orientation="vertical">
+
 
                 <TextView
                     android:id="@+id/diaryTitle"
@@ -41,7 +42,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/diaryDate"

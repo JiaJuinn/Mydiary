@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
@@ -33,6 +34,7 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
         holder.title.text = model.title
         holder.date.text = model.date
         holder.time.text = model.time
+
 
         // Validate and set the background color of the diary container
         if (model.diaryColor.isNotEmpty() && isValidColor(model.diaryColor)) {
@@ -75,6 +77,7 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
         val title: TextView = itemView.findViewById(R.id.diaryTitle)
         val date: TextView = itemView.findViewById(R.id.diaryDate)
         val time: TextView = itemView.findViewById(R.id.diaryTime)
+//        val diaryImage: ImageView = itemView.findViewById(R.id.diaryImage)
         val diaryContainer: View = itemView.findViewById(R.id.diary_container)
 
         fun bind(diary: Diary) {

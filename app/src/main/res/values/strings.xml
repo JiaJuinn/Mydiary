@@ -35,4 +35,5 @@
     <string name="sign_out">Sign Out</string>
     <string name="pick_color">Pick Color</string>
     <string name="add_image">add image</string>
+    <string name="delete_diary">Delete Diary</string>
 </resources>

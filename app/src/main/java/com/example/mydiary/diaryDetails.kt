@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener
 class diaryDetails : AppCompatActivity() {
 
     private lateinit var backBtn: ImageView
-
+    private lateinit var deleteBtn: ImageView
     private lateinit var diaryTitle: EditText
     private lateinit var diarySubTitle: EditText
     private lateinit var diaryImage: ImageView
@@ -40,6 +40,7 @@ class diaryDetails : AppCompatActivity() {
         diaryDescription = findViewById(R.id.diaryDescription)
         diaryImage = findViewById(R.id.imageDiary)
         backBtn = findViewById(R.id.imageBack)
+        deleteBtn = findViewById(R.id.deleteDiaryButton)
 
         // Initialize Firebase Database
         mAuth = FirebaseAuth.getInstance()
@@ -49,6 +50,7 @@ class diaryDetails : AppCompatActivity() {
         Log.d("diaryId", diaryId ?: "diaryId is null")
 
         backBtn.setOnClickListener { finish() }
+        deleteBtn.setOnClickListener(){deleteDiary()}
 
         val userId = mAuth.currentUser?.uid ?: return
 
@@ -89,5 +91,24 @@ class diaryDetails : AppCompatActivity() {
                     Log.e("FirebaseData", "Error fetching data", databaseError.toException())
                 }
             })
+    }
+
+    private fun deleteDiary(){
+        val userId = mAuth.currentUser?.uid ?: return
+        val diaryId = intent.getStringExtra("diaryId")
+        if (diaryId == null) {
+            Log.e("DeleteDiary", "Diary ID is null")
+            return
+        }
+
+        databaseRef.child("users").child(userId).child("diaryEntries").child(diaryId).removeValue()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("DeleteDiary", "Diary entry deleted successfully.")
+                    finish() // Close the activity after deletion
+                } else {
+                    Log.e("DeleteDiary", "Failed to delete diary entry: ${task.exception?.message}")
+                }
+            }
     }
 }
