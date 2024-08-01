@@ -1,7 +1,6 @@
 package com.example.mydiary
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,8 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
     FirebaseRecyclerAdapter<Diary, DiaryAdapter.MyViewHolder>(options) {
 
-    private var clickListener: OnItemClickListener? = null
     private var itemList: List<Diary>? = null
+    private var clickListener: OnItemClickListener? = null
 
     interface OnItemClickListener {
         fun onItemClick(diary: Diary, position: Int)
@@ -24,27 +23,21 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
         this.clickListener = listener
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return position
-    }
-
-    //Assign recycleview's attribute using the data from firebase (daily block)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int, model: Diary) {
-        holder.title.text = model.title
-        holder.date.text = model.date
-        holder.time.text = model.time
+        val item = getItem(position)
+        holder.title.text = item.title
+        holder.date.text = item.date
+        holder.time.text = item.time
 
         // Validate and set the background color of the diary container
-        if (model.diaryColor.isNotEmpty() && isValidColor(model.diaryColor)) {
-            val color = Color.parseColor(model.diaryColor)
+        if (item.diaryColor.isNotEmpty() && isValidColor(item.diaryColor)) {
+            val color = Color.parseColor(item.diaryColor)
             holder.diaryContainer.setBackgroundColor(color)
         } else {
-            // Set a default color if the color string is invalid
-            holder.diaryContainer.setBackgroundColor(Color.WHITE) // or any default color
+            holder.diaryContainer.setBackgroundColor(Color.WHITE)
         }
 
-        holder.bind(model) //Bind with the functions
-
+        holder.bind(item)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -52,8 +45,17 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
         return MyViewHolder(itemView, clickListener)
     }
 
+    fun searchItemList(searchItem: ArrayList<Diary>) {
+        itemList = searchItem
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int {
         return itemList?.size ?: super.getItemCount()
+    }
+
+    override fun getItem(position: Int): Diary {
+        return itemList?.get(position) ?: super.getItem(position)
     }
 
     override fun onDataChanged() {
@@ -81,7 +83,6 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
         fun bind(diary: Diary) {
             itemView.setOnClickListener {
                 val position = adapterPosition
-                Log.d("DiaryAdapter", "Clicked position: $position")
                 if (position != RecyclerView.NO_POSITION && listener != null) {
                     listener.onItemClick(diary, position)
                 }
@@ -89,3 +90,4 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
         }
     }
 }
+

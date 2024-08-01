@@ -45,6 +45,8 @@
             android:backgroundTint="@color/colorDiaryColor2"
             tools:ignore="VisualLintBounds" />
 
+
+
     </LinearLayout>
 
 
@@ -62,19 +64,18 @@
         android:paddingEnd="@dimen/_10sdp"
         app:layout_constraintTop_toBottomOf="@id/topBar">
     
-        <ImageView
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_search"
-            app:tint="@color/colorSearchIcon" />
+<!--        <ImageView-->
+<!--            android:layout_width="@dimen/_20sdp"-->
+<!--            android:layout_height="@dimen/_20sdp"-->
+<!--            android:contentDescription="@string/app_name"-->
+<!--            android:src="@drawable/ic_search"-->
+<!--            app:tint="@color/colorSearchIcon" />-->
 
-        <EditText
+        <androidx.appcompat.widget.SearchView
             android:id="@+id/inputSearch"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:background="@null"
+            android:background="@color/colorSearchBackground"
             android:fontFamily="@font/ubuntu_regular"
             android:hint="@string/search_diaries"
             android:imeOptions="actionDone"
@@ -84,7 +85,10 @@
             android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorTextHint"
             android:textSize="@dimen/_13sdp"
-            tools:ignore="VisualLintTextFieldSize,TextContrastCheck,TextSizeCheck,TouchTargetSizeCheck" />
+            app:iconifiedByDefault="false"/>
+
+
+
 
     </LinearLayout>
 
