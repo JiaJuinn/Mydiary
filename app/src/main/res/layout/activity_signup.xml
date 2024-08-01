@@ -104,15 +104,6 @@
             android:fontFamily="@font/ubuntu_regular"
             tools:ignore="TextFields,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
-        <TextView
-            android:id="@+id/loginLink"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/login_Link"
-            android:textAlignment="textEnd"
-            android:fontFamily="@font/ubuntu_regular"
-            android:textColor="@color/colorDiaryColor2" />
-
         <Button
             android:id="@+id/registerBtn"
             android:layout_width="wrap_content"
@@ -123,6 +114,16 @@
             android:backgroundTint="@color/colorDiaryColor2"
             android:fontFamily="@font/ubuntu_bold"
             android:textColor="@color/colorPrimary"/>
+
+        <TextView
+            android:id="@+id/loginLink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10ssp"
+            android:text="@string/login_Link"
+            android:textAlignment="center"
+            android:fontFamily="@font/ubuntu_regular"
+            android:textColor="@color/colorDiaryColor2" />
 
     </LinearLayout>
 </RelativeLayout>
