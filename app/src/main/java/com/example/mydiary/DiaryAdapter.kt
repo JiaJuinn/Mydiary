@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 
@@ -34,6 +35,15 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
         holder.title.text = model.title
         holder.date.text = model.date
         holder.time.text = model.time
+
+        if (model.diaryImage.isNotEmpty()) {
+            Glide.with(holder.itemView.context)
+                .load(model.diaryImage)
+                .into(holder.diaryImage)
+        } else {
+            holder.diaryImage.setImageResource(R.drawable.default_image) // Set a default image if no URL is provided
+        }
+
 
 
         // Validate and set the background color of the diary container
@@ -77,7 +87,7 @@ class DiaryAdapter(options: FirebaseRecyclerOptions<Diary>) :
         val title: TextView = itemView.findViewById(R.id.diaryTitle)
         val date: TextView = itemView.findViewById(R.id.diaryDate)
         val time: TextView = itemView.findViewById(R.id.diaryTime)
-//        val diaryImage: ImageView = itemView.findViewById(R.id.diaryImage)
+        val diaryImage: ImageView = itemView.findViewById(R.id.diaryImage)
         val diaryContainer: View = itemView.findViewById(R.id.diary_container)
 
         fun bind(diary: Diary) {
